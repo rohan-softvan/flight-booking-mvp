@@ -6,6 +6,7 @@ COPY frontend/package.json frontend/package.json
 RUN npm install --workspaces --if-present --include-workspace-root
 COPY shared shared
 COPY frontend frontend
+RUN npm run build:shared
 WORKDIR /app/frontend
 EXPOSE 5173
 CMD ["npm", "run", "dev"]
