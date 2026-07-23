@@ -11,7 +11,7 @@ docker-compose up --build
 
 - Frontend: http://localhost:5173
 - Backend health check: http://localhost:4000/api/health
-- Postgres: localhost:5432 (credentials in `.env`)
+- Postgres: localhost:5433 (credentials in `.env`; host port deliberately not 5432 to avoid clashing with any other local Postgres)
 
 ## Project layout
 
