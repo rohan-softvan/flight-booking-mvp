@@ -5,6 +5,7 @@ import { env } from "./config/env";
 import { errorHandler } from "./middleware/errorHandler";
 import { notFound } from "./middleware/notFound";
 import { airportsRouter } from "./routes/airports.routes";
+import { bookingsRouter } from "./routes/bookings.routes";
 import { flightsRouter } from "./routes/flights.routes";
 import { healthRouter } from "./routes/health.routes";
 
@@ -18,6 +19,7 @@ export function createApp(): Express {
   app.use("/api", healthRouter);
   app.use("/api", airportsRouter);
   app.use("/api", flightsRouter);
+  app.use("/api", bookingsRouter);
 
   app.use(notFound);
   app.use(errorHandler);

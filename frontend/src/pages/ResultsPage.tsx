@@ -1,6 +1,7 @@
 import { Flight } from "@flight-booking/shared";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FlightResultsList from "../components/FlightResultsList";
+import { useBookingDraft } from "../state/BookingDraftContext";
 
 interface ResultsLocationState {
   flights: Flight[];
@@ -11,6 +12,8 @@ interface ResultsLocationState {
 
 export default function ResultsPage() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { setFlight } = useBookingDraft();
   const state = location.state as ResultsLocationState | null;
 
   if (!state) {
@@ -26,6 +29,11 @@ export default function ResultsPage() {
     );
   }
 
+  function handleSelect(flight: Flight): void {
+    setFlight(flight);
+    navigate("/book");
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-12">
       <div className="mx-auto max-w-2xl">
@@ -38,7 +46,7 @@ export default function ResultsPage() {
             New search
           </Link>
         </div>
-        <FlightResultsList flights={state.flights} />
+        <FlightResultsList flights={state.flights} onSelect={handleSelect} />
       </div>
     </main>
   );
