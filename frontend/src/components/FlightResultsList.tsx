@@ -2,6 +2,7 @@ import { Flight } from "@flight-booking/shared";
 
 interface Props {
   flights: Flight[];
+  onSelect: (flight: Flight) => void;
 }
 
 function formatPrice(cents: number, currency: string): string {
@@ -18,7 +19,7 @@ function formatTime(iso: string): string {
   });
 }
 
-export default function FlightResultsList({ flights }: Props) {
+export default function FlightResultsList({ flights, onSelect }: Props) {
   if (flights.length === 0) {
     return (
       <div className="rounded-lg bg-white p-6 text-center shadow-sm ring-1 ring-slate-200">
@@ -45,8 +46,17 @@ export default function FlightResultsList({ flights }: Props) {
               Departs {formatTime(flight.departureAt)} &middot; Arrives {formatTime(flight.arrivalAt)}
             </div>
           </div>
-          <div className="text-lg font-semibold text-slate-900">
-            {formatPrice(flight.basePriceCents, flight.currency)}
+          <div className="flex items-center gap-4">
+            <div className="text-lg font-semibold text-slate-900">
+              {formatPrice(flight.basePriceCents, flight.currency)}
+            </div>
+            <button
+              type="button"
+              onClick={() => onSelect(flight)}
+              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
+            >
+              Select
+            </button>
           </div>
         </li>
       ))}

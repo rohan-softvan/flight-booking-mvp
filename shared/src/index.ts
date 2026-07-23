@@ -1,3 +1,3 @@
 export type { Airport, Booking, BookingStatus, Flight, Passenger } from "./types";
-export { searchQuerySchema } from "./validation";
-export type { SearchQuery } from "./validation";
+export { bookingCreateSchema, passengerSchema, searchQuerySchema } from "./validation";
+export type { BookingCreateInput, PassengerInput, SearchQuery } from "./validation";

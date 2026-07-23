@@ -37,3 +37,36 @@ export const searchQuerySchema = z
   });
 
 export type SearchQuery = z.infer<typeof searchQuerySchema>;
+
+const NAME_REGEX = /^[\p{L}\p{M}'’\- ]+$/u;
+const COUNTRY_CODE_REGEX = /^[A-Za-z]{2}$/;
+
+export const passengerSchema = z.object({
+  firstName: z
+    .string()
+    .trim()
+    .min(1, "First name required")
+    .max(50, "First name must be 50 characters or fewer")
+    .regex(NAME_REGEX, "First name contains invalid characters"),
+  lastName: z
+    .string()
+    .trim()
+    .min(1, "Last name required")
+    .max(50, "Last name must be 50 characters or fewer")
+    .regex(NAME_REGEX, "Last name contains invalid characters"),
+  email: z.string().trim().min(1, "Email required").email("Enter a valid email address"),
+  nationality: z
+    .string()
+    .trim()
+    .min(1, "Nationality required")
+    .regex(COUNTRY_CODE_REGEX, "Nationality must be a 2-letter country code")
+    .transform((v) => v.toUpperCase()),
+});
+
+export type PassengerInput = z.infer<typeof passengerSchema>;
+
+export const bookingCreateSchema = passengerSchema.extend({
+  flightId: z.string().uuid("Invalid flight"),
+});
+
+export type BookingCreateInput = z.infer<typeof bookingCreateSchema>;
