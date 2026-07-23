@@ -33,10 +33,18 @@ export default function SearchPage() {
   }
 
   return (
-    <main style={{ fontFamily: "sans-serif", padding: "2rem" }}>
-      <h1>Search flights</h1>
-      <FlightSearchForm onSearch={handleSearch} submitting={submitting} />
-      {error && <p role="alert">{error}</p>}
+    <main className="min-h-screen bg-slate-50 px-4 py-12">
+      <div className="mx-auto max-w-md">
+        <h1 className="mb-6 text-2xl font-semibold text-slate-900">Search flights</h1>
+        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <FlightSearchForm onSearch={handleSearch} submitting={submitting} />
+          {error && (
+            <p role="alert" className="mt-4 text-sm text-red-600">
+              {error}
+            </p>
+          )}
+        </div>
+      </div>
     </main>
   );
 }
